@@ -1715,3 +1715,108 @@ body:hover .cursor-glow {
   font-size: 0.7rem;
   padding: 0.45rem 0.9rem;
 }
+
+/* ==========================================
+   SHARE BUTTON
+   ========================================== */
+.modal__share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--snow-muted);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 0.5rem;
+}
+
+.modal__share:hover {
+  background: rgba(30, 42, 74, 0.6);
+  color: var(--snow);
+  border-color: var(--glass-border-hover);
+}
+
+.modal__share svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================
+   ITINERARY TIMELINE
+   ========================================== */
+.modal__itinerary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.itinerary-day {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+}
+
+.itinerary-day:last-child {
+  padding-bottom: 0;
+}
+
+.itinerary-day:last-child .itinerary-day__line {
+  display: none;
+}
+
+.itinerary-day__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 52px;
+  flex-shrink: 0;
+}
+
+.itinerary-day__number {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--midnight);
+  background: linear-gradient(135deg, var(--orange), var(--gold));
+  padding: 0.25rem 0.55rem;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.itinerary-day__line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, var(--orange), rgba(255, 107, 43, 0.15));
+  margin-top: 0.35rem;
+  border-radius: 1px;
+  min-height: 20px;
+}
+
+.itinerary-day__content {
+  padding-top: 0.15rem;
+}
+
+.itinerary-day__title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--snow);
+  margin-bottom: 0.3rem;
+}
+
+.itinerary-day__desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--snow-muted);
+  line-height: 1.6;
+}

@@ -378,7 +378,13 @@ function applyFilters() {
 }
 
 // ───────── MODAL ─────────
+let currentModalTripId = null;
+
 function openModal(trip) {
+  currentModalTripId = trip.id;
+  // Update URL hash without scrolling
+  history.replaceState(null, '', '#' + trip.id);
+
   const o = document.getElementById('modal-overlay');
   document.getElementById('modal-image').src = trip.image;
   document.getElementById('modal-image').alt = trip.title;
@@ -403,6 +409,24 @@ function openModal(trip) {
     </div>
   `).join('');
 
+  // Render itinerary
+  const itin = ITINERARIES[trip.id] || [];
+  document.getElementById('modal-itinerary').innerHTML = itin.map(day => `
+    <div class="itinerary-day">
+      <div class="itinerary-day__marker">
+        <span class="itinerary-day__number">Day ${day.day}</span>
+        <span class="itinerary-day__line"></span>
+      </div>
+      <div class="itinerary-day__content">
+        <h4 class="itinerary-day__title">${day.title}</h4>
+        <p class="itinerary-day__desc">${day.desc}</p>
+      </div>
+    </div>
+  `).join('');
+
+  // Share button
+  document.getElementById('share-text').textContent = 'Share Link';
+
   o.classList.add('active');
   document.body.style.overflow = 'hidden';
   setTimeout(() => {
@@ -413,12 +437,38 @@ function openModal(trip) {
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('active');
   document.body.style.overflow = '';
+  currentModalTripId = null;
+  history.replaceState(null, '', window.location.pathname);
 }
 
 function initModal() {
   document.getElementById('modal-close').addEventListener('click', closeModal);
   document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Share button
+  document.getElementById('modal-share').addEventListener('click', () => {
+    if (!currentModalTripId) return;
+    const url = window.location.origin + window.location.pathname + '#' + currentModalTripId;
+    navigator.clipboard.writeText(url).then(() => {
+      const el = document.getElementById('share-text');
+      el.textContent = '✓ Copied!';
+      setTimeout(() => { el.textContent = 'Share Link'; }, 2000);
+    }).catch(() => {
+      prompt('Copy this link:', window.location.origin + window.location.pathname + '#' + currentModalTripId);
+    });
+  });
+
+  // Handle hash on page load and hash changes
+  function openFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const trip = tripMap.get(hash);
+      if (trip) openModal(trip);
+    }
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
 }
 
 // ───────── SCROLL REVEAL ─────────

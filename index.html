@@ -247,6 +247,17 @@
             <polyline points="12 5 19 12 12 19" />
           </svg>
         </button>
+        <button class="modal__share" id="modal-share" title="Copy shareable link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+          </svg>
+          <span id="share-text">Share Link</span>
+        </button>
+        <div class="modal__divider"></div>
+        <p class="modal__section-title">Sample Itinerary</p>
+        <div class="modal__itinerary" id="modal-itinerary"></div>
       </div>
     </div>
   </div>
@@ -319,6 +330,7 @@
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="trips-data.js"></script>
+  <script src="itineraries.js"></script>
   <script src="app.js"></script>
 </body>
 
