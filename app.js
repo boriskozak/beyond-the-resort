@@ -1,158 +1,29 @@
 /* ============================================
    Beyond the Resort — App Logic (PREMIUM)
    3D Globe · Filters · Modals · Animations
-   Cursor Glow · Stats Counter · Hero Crossfade
    ============================================ */
-
-// ───────── TRIP DATA ─────────
-const TRIPS = [
-  {
-    id: 'iceland',
-    region: 'Iceland — Troll Peninsula',
-    title: 'Arctic Heli-Skiing — Summit to Sea',
-    tagline: 'Where fire meets ice.',
-    price: '$7,500 – $10,000 pp',
-    image: 'images/iceland.png',
-    transport: 'helicopter',
-    vibe: 'raw',
-    adrenaline: 9,
-    luxury: 4,
-    remoteness: 7,
-    bestTime: 'March – May',
-    snowType: 'Maritime Snow — Dense, stable, and wind-buffed. Born from the North Atlantic, these heavy snowpacks bond fast to volcanic terrain, delivering reliable lines from summit to shoreline.',
-    description: 'Fly over fractured glaciers and erupting geysers to ski 5,000-foot descents that end at the Arctic Ocean. The Troll Peninsula delivers untracked powder on peaks that have never seen a chairlift — backed by creative Icelandic cuisine, natural hot springs, and midnight sun sessions in late season.',
-    details: ['6-day expedition', 'Max 8 guests', 'Hot spring base camp', 'Maritime snowpack'],
-    lat: 66.0, lon: -18.5
-  },
-  {
-    id: 'greenland',
-    region: 'Greenland — Nuuk / Maniitsoq',
-    title: 'Raw Arctic Ski Touring',
-    tagline: 'The last great wilderness.',
-    price: '$8,000 – $12,000 pp',
-    image: 'images/greenland.png',
-    transport: 'boat',
-    vibe: 'raw',
-    adrenaline: 8,
-    luxury: 2,
-    remoteness: 10,
-    bestTime: 'April – June',
-    snowType: 'Arctic Desert — Thin, wind-sculpted, and bone-dry. Greenland receives surprisingly little precipitation; the snow that falls is featherweight and crystalline, but crust layers demand sharp route-finding.',
-    description: 'Sail a converted fishing vessel through the Davis Strait to access fjords that don\'t appear on most maps. Earn every turn on multi-day touring circuits through an arctic desert where the ice cap glows electric blue on the horizon. No lodges. No trails. No one else.',
-    details: ['10-day voyage', 'Max 6 guests', 'Boat-based camp', 'Full self-sufficiency'],
-    lat: 65.2, lon: -52.0
-  },
-  {
-    id: 'svalbard',
-    region: 'Svalbard — Norway',
-    title: 'Ski & Sail Expeditions',
-    tagline: 'Polar bear country.',
-    price: '$9,000 – $14,000 pp',
-    image: 'images/svalbard.png',
-    transport: 'boat',
-    vibe: 'luxury',
-    adrenaline: 8,
-    luxury: 7,
-    remoteness: 9,
-    bestTime: 'April – May',
-    snowType: 'Maritime-Arctic Hybrid — Svalbard sits where the Gulf Stream meets polar air. The result: moderate snowfall that consolidates well, ideal for long couloir descents to sea level.',
-    description: 'Live aboard a heritage tall ship navigating the high Arctic archipelago at 78°N. Each morning, zodiac ashore to skin up spines and couloirs that drop directly into the fjord. Armed guides scan for polar bears while you carve untouched faces under the midnight sun. Gourmet dinners and a wood-fired sauna await below deck.',
-    details: ['8-day sail', 'Max 12 guests', 'Armed polar bear guard', 'Tall ship accommodation'],
-    lat: 78.2, lon: 15.6
-  },
-  {
-    id: 'kyrgyzstan',
-    region: 'Kyrgyzstan — Tien Shan',
-    title: 'Yurt-Based Heli-Skiing on the Silk Road',
-    tagline: 'Nomad powder.',
-    price: '$5,000 – $7,500 pp',
-    image: 'images/kyrgyzstan.png',
-    transport: 'helicopter',
-    vibe: 'raw',
-    adrenaline: 9,
-    luxury: 5,
-    remoteness: 8,
-    bestTime: 'February – April',
-    snowType: 'Continental Cold Smoke — Landlocked and high-altitude, the Tien Shan range produces dry, deep, blower powder with a shallow snowpack. Aspect management is everything.',
-    description: 'A Soviet-era Mi-8 helicopter deposits you on 15,000-foot Silk Road peaks above yurt camps run by semi-nomadic Kyrgyz herders. The vertical is massive, the snow is cold smoke, and the price is half of anything comparable in the Alps. Warm up with fermented mare\'s milk and mutton stew by the fire.',
-    details: ['7-day trip', 'Max 10 guests', 'Traditional yurt lodging', 'Mi-8 helicopter'],
-    lat: 42.0, lon: 75.0
-  },
-  {
-    id: 'finland',
-    region: 'Finnish Lapland',
-    title: 'Dog-Sled Supported Backcountry Touring',
-    tagline: 'Silent wilderness, loyal companions.',
-    price: '$5,500 – $8,000 pp',
-    image: 'images/finland.png',
-    transport: 'dogsled',
-    vibe: 'raw',
-    adrenaline: 6,
-    luxury: 5,
-    remoteness: 7,
-    bestTime: 'January – March',
-    snowType: 'Boreal Continental — Consistent, cold, and deep. Lapland\'s snow arrives early and stays late, building a stable base ideal for touring. Powder stashes hide in old-growth spruce forests.',
-    description: 'Your gear travels by husky sled as you skin through ancient boreal forests and across frozen lakes, chasing turns on the gentle fells of Finnish Lapland. Nights are spent in remote wilderness cabins with wood-fired saunas. The northern lights are your headlamp. The silence is deafening.',
-    details: ['5-day traverse', 'Max 8 guests', 'Husky team support', 'Wilderness cabin stays'],
-    lat: 68.5, lon: 27.5
-  },
-  {
-    id: 'skijoring',
-    region: 'Montana / St. Moritz',
-    title: 'Luxury Skijoring',
-    tagline: 'Horse-drawn thrills.',
-    price: '$6,000 – $9,000 pp',
-    image: 'images/skijoring.png',
-    transport: 'horse',
-    vibe: 'luxury',
-    adrenaline: 7,
-    luxury: 10,
-    remoteness: 3,
-    bestTime: 'December – February',
-    snowType: 'Intermountain / Alpine — Montana\'s snow is cold and dry; St. Moritz delivers high-altitude champagne powder. Both provide ideal groomed surfaces for high-speed skijoring.',
-    description: 'Be towed at 30 mph behind a thoroughbred across frozen meadows and purpose-built courses, jumping hay bales and slalom gates. In Montana, stay at a working ranch with craft whiskey and wagyu steaks. In St. Moritz, it\'s Veuve Clicquot and fur blankets at a palace hotel. The most luxurious adrenaline rush in skiing.',
-    details: ['4-day experience', 'Max 6 guests', 'Five-star lodging', 'Private instruction'],
-    lat: 46.5, lon: 9.8
-  }
-];
 
 // ───────── CURSOR GLOW ─────────
 function initCursorGlow() {
   const glow = document.getElementById('cursor-glow');
   if (!glow || window.matchMedia('(max-width: 768px)').matches) return;
-
-  let mouseX = 0, mouseY = 0;
-  let glowX = 0, glowY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function updateGlow() {
+  let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+  (function updateGlow() {
     glowX += (mouseX - glowX) * 0.08;
     glowY += (mouseY - glowY) * 0.08;
     glow.style.left = glowX + 'px';
     glow.style.top = glowY + 'px';
     requestAnimationFrame(updateGlow);
-  }
-  updateGlow();
+  })();
 }
 
 // ───────── NAV SCROLL ─────────
 function initNavScroll() {
   const nav = document.getElementById('nav');
   if (!nav) return;
-
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 80) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-    lastScroll = currentScroll;
+    nav.classList.toggle('scrolled', window.scrollY > 80);
   }, { passive: true });
 }
 
@@ -160,78 +31,48 @@ function initNavScroll() {
 function initSnowParticles() {
   const container = document.getElementById('snow-particles');
   if (!container) return;
-  const count = 80;
+  const count = window.matchMedia('(max-width: 768px)').matches ? 25 : 50;
+  const frag = document.createDocumentFragment();
   for (let i = 0; i < count; i++) {
-    const flake = document.createElement('div');
-    flake.classList.add('snowflake');
-    flake.style.left = Math.random() * 100 + '%';
-    const s = Math.random() * 4 + 1.5;
-    flake.style.width = s + 'px';
-    flake.style.height = s + 'px';
-    flake.style.animationDuration = (Math.random() * 10 + 8) + 's';
-    flake.style.animationDelay = (Math.random() * 12) + 's';
-    flake.style.opacity = Math.random() * 0.5 + 0.15;
-    container.appendChild(flake);
+    const f = document.createElement('div');
+    f.classList.add('snowflake');
+    f.style.cssText = `left:${Math.random() * 100}%;width:${Math.random() * 4 + 1.5}px;height:${Math.random() * 4 + 1.5}px;animation-duration:${Math.random() * 10 + 8}s;animation-delay:${Math.random() * 12}s;opacity:${Math.random() * 0.5 + 0.15}`;
+    frag.appendChild(f);
   }
+  container.appendChild(frag);
 }
 
 // ───────── HERO BG CROSSFADE ─────────
 function initHeroCrossfade() {
-  const imgCurrent = document.getElementById('hero-bg-img');
-  const imgNext = document.getElementById('hero-bg-img-next');
-  if (!imgCurrent || !imgNext) return;
-
-  const images = ['images/iceland.png', 'images/svalbard.png', 'images/finland.png', 'images/kyrgyzstan.png'];
-  let idx = 0;
-  let showingCurrent = true;
-
+  const imgA = document.getElementById('hero-bg-img');
+  const imgB = document.getElementById('hero-bg-img-next');
+  if (!imgA || !imgB) return;
+  const imgs = ['images/iceland.png', 'images/svalbard.png', 'images/alaska.png', 'images/kamchatka.png', 'images/japan.png', 'images/patagonia.png'];
+  let idx = 0, showA = true;
   setInterval(() => {
-    idx = (idx + 1) % images.length;
-    if (showingCurrent) {
-      imgNext.src = images[idx];
-      imgNext.style.opacity = '1';
-      imgCurrent.style.opacity = '0';
-    } else {
-      imgCurrent.src = images[idx];
-      imgCurrent.style.opacity = '1';
-      imgNext.style.opacity = '0';
-    }
-    showingCurrent = !showingCurrent;
+    idx = (idx + 1) % imgs.length;
+    if (showA) { imgB.src = imgs[idx]; imgB.style.opacity = '1'; imgA.style.opacity = '0'; }
+    else { imgA.src = imgs[idx]; imgA.style.opacity = '1'; imgB.style.opacity = '0'; }
+    showA = !showA;
   }, 7000);
 }
 
 // ───────── STATS COUNTER ─────────
 function initStatsCounter() {
-  const numbers = document.querySelectorAll('.stat-item__number[data-target]');
-  if (!numbers.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target);
-        animateCounter(el, target);
-        observer.unobserve(el);
-      }
-    });
+  const nums = document.querySelectorAll('.stat-item__number[data-target]');
+  if (!nums.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target, +e.target.dataset.target); obs.unobserve(e.target); } });
   }, { threshold: 0.5 });
-
-  numbers.forEach(n => observer.observe(n));
+  nums.forEach(n => obs.observe(n));
 }
-
 function animateCounter(el, target) {
-  const duration = 2000;
-  const startTime = performance.now();
-
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    // Ease out cubic
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(target * eased);
-    if (progress < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
+  const t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / 2000, 1);
+    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
 }
 
 // ───────── 3D GLOBE ─────────
@@ -241,24 +82,21 @@ let autoRotate = true;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const pinMeshes = [];
+const tripMap = new Map();
+TRIPS.forEach(t => tripMap.set(t.id, t));
+let lastRaycast = 0;
 
-function latLonToVec3(lat, lon, radius) {
+function latLonToVec3(lat, lon, r) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lon + 180) * (Math.PI / 180);
-  return new THREE.Vector3(
-    -(radius * Math.sin(phi) * Math.cos(theta)),
-    radius * Math.cos(phi),
-    radius * Math.sin(phi) * Math.sin(theta)
-  );
+  return new THREE.Vector3(-(r * Math.sin(phi) * Math.cos(theta)), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
 }
 
 function initGlobe() {
   const container = document.getElementById('globe-container');
   const canvas = document.getElementById('globe-canvas');
   if (!container || !canvas) return;
-
-  const w = container.clientWidth;
-  const h = container.clientHeight;
+  const w = container.clientWidth, h = container.clientHeight;
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
@@ -268,123 +106,54 @@ function initGlobe() {
   renderer.setSize(w, h);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Lighting
   scene.add(new THREE.AmbientLight(0x334466, 0.5));
+  const dir = new THREE.DirectionalLight(0x8899cc, 1.2); dir.position.set(5, 3, 5); scene.add(dir);
+  const rim = new THREE.DirectionalLight(0xff6b2b, 0.3); rim.position.set(-5, -2, -3); scene.add(rim);
+  const pt = new THREE.PointLight(0x38bdf8, 0.3, 10); pt.position.set(-3, 2, 4); scene.add(pt);
 
-  const dirLight = new THREE.DirectionalLight(0x8899cc, 1.2);
-  dirLight.position.set(5, 3, 5);
-  scene.add(dirLight);
-
-  const rimLight = new THREE.DirectionalLight(0xff6b2b, 0.3);
-  rimLight.position.set(-5, -2, -3);
-  scene.add(rimLight);
-
-  const pointLight = new THREE.PointLight(0x38bdf8, 0.3, 10);
-  pointLight.position.set(-3, 2, 4);
-  scene.add(pointLight);
-
-  // Globe
-  const globeRadius = 1.5;
-  const globeGeo = new THREE.SphereGeometry(globeRadius, 80, 80);
-  const globeMat = new THREE.MeshPhongMaterial({
-    color: 0x0a1025,
-    emissive: 0x060c20,
-    specular: 0x2a3a66,
-    shininess: 20,
-    transparent: true,
-    opacity: 0.97,
-  });
-  globe = new THREE.Mesh(globeGeo, globeMat);
+  const R = 1.5;
+  globe = new THREE.Mesh(
+    new THREE.SphereGeometry(R, 48, 48),
+    new THREE.MeshPhongMaterial({ color: 0x0a1025, emissive: 0x060c20, specular: 0x2a3a66, shininess: 20, transparent: true, opacity: 0.97 })
+  );
   scene.add(globe);
 
-  // Wireframe
-  const wireGeo = new THREE.SphereGeometry(globeRadius + 0.004, 40, 40);
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x1a2a55,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.2,
-  });
-  globe.add(new THREE.Mesh(wireGeo, wireMat));
+  globe.add(new THREE.Mesh(new THREE.SphereGeometry(R + 0.004, 24, 24), new THREE.MeshBasicMaterial({ color: 0x1a2a55, wireframe: true, transparent: true, opacity: 0.2 })));
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(R + 0.1, 32, 32), new THREE.MeshBasicMaterial({ color: 0x1a3a88, transparent: true, opacity: 0.06, side: THREE.BackSide })));
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(R + 0.2, 32, 32), new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.02, side: THREE.BackSide })));
 
-  // Atmosphere
-  const glowGeo = new THREE.SphereGeometry(globeRadius + 0.1, 64, 64);
-  const glowMat = new THREE.MeshBasicMaterial({
-    color: 0x1a3a88,
-    transparent: true,
-    opacity: 0.06,
-    side: THREE.BackSide,
-  });
-  scene.add(new THREE.Mesh(glowGeo, glowMat));
+  addContinentPatches(R);
 
-  // Second atmosphere (wider)
-  const glowGeo2 = new THREE.SphereGeometry(globeRadius + 0.2, 64, 64);
-  const glowMat2 = new THREE.MeshBasicMaterial({
-    color: 0x38bdf8,
-    transparent: true,
-    opacity: 0.02,
-    side: THREE.BackSide,
-  });
-  scene.add(new THREE.Mesh(glowGeo2, glowMat2));
-
-  // Continent patches
-  addContinentPatches(globeRadius);
-
-  // Pin group
   pinGroup = new THREE.Group();
   globe.add(pinGroup);
 
-  // Add pins
+  // Share geometries & materials across all 60 pins (huge perf win)
+  const stemGeo = new THREE.CylinderGeometry(0.007, 0.007, 0.14, 6);
+  const headGeo = new THREE.SphereGeometry(0.035, 8, 8);
+  const glowGeo = new THREE.SphereGeometry(0.06, 8, 8);
+  const ringGeo = new THREE.RingGeometry(0.05, 0.07, 12);
+  const pinMat = new THREE.MeshBasicMaterial({ color: 0xff6b2b });
+
   TRIPS.forEach(trip => {
-    const pos = latLonToVec3(trip.lat, trip.lon, globeRadius);
-
-    const stemGeo = new THREE.CylinderGeometry(0.007, 0.007, 0.14, 8);
-    const stemMat = new THREE.MeshBasicMaterial({ color: 0xff6b2b });
-    const stem = new THREE.Mesh(stemGeo, stemMat);
-
-    const headGeo = new THREE.SphereGeometry(0.035, 16, 16);
-    const headMat = new THREE.MeshBasicMaterial({ color: 0xff6b2b });
-    const head = new THREE.Mesh(headGeo, headMat);
+    const pos = latLonToVec3(trip.lat, trip.lon, R);
+    const stem = new THREE.Mesh(stemGeo, pinMat);
+    const head = new THREE.Mesh(headGeo, pinMat);
     head.position.y = 0.09;
+    // Glow & ring need unique materials since we animate opacity per-pin
+    const glow = new THREE.Mesh(glowGeo, new THREE.MeshBasicMaterial({ color: 0xff8c55, transparent: true, opacity: 0.25 }));
+    glow.position.y = 0.09;
+    const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xff6b2b, transparent: true, opacity: 0.15, side: THREE.DoubleSide }));
+    ring.position.y = 0.005; ring.rotation.x = -Math.PI / 2;
 
-    const glowPinGeo = new THREE.SphereGeometry(0.06, 16, 16);
-    const glowPinMat = new THREE.MeshBasicMaterial({
-      color: 0xff8c55,
-      transparent: true,
-      opacity: 0.25,
-    });
-    const glowPin = new THREE.Mesh(glowPinGeo, glowPinMat);
-    glowPin.position.y = 0.09;
-
-    // Ring around pin
-    const ringGeo = new THREE.RingGeometry(0.05, 0.07, 24);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xff6b2b,
-      transparent: true,
-      opacity: 0.15,
-      side: THREE.DoubleSide,
-    });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.position.y = 0.005;
-    ring.rotation.x = -Math.PI / 2;
-
-    const pinContainer = new THREE.Group();
-    pinContainer.add(stem);
-    pinContainer.add(head);
-    pinContainer.add(glowPin);
-    pinContainer.add(ring);
-
-    pinContainer.position.copy(pos);
-    pinContainer.lookAt(0, 0, 0);
-    pinContainer.rotateX(Math.PI / 2);
-
-    pinContainer.userData = { tripId: trip.id };
-    pinGroup.add(pinContainer);
+    const g = new THREE.Group();
+    g.add(stem); g.add(head); g.add(glow); g.add(ring);
+    g.position.copy(pos); g.lookAt(0, 0, 0); g.rotateX(Math.PI / 2);
+    g.userData = { tripId: trip.id };
+    pinGroup.add(g);
     pinMeshes.push(head);
     head.userData = { tripId: trip.id };
   });
 
-  // Events
   canvas.addEventListener('mousedown', onMouseDown);
   canvas.addEventListener('mousemove', onMouseMove);
   canvas.addEventListener('mouseup', onMouseUp);
@@ -393,208 +162,86 @@ function initGlobe() {
   canvas.addEventListener('touchstart', onTouchStart, { passive: false });
   canvas.addEventListener('touchmove', onTouchMove, { passive: false });
   canvas.addEventListener('touchend', onMouseUp);
-
   window.addEventListener('resize', onResize);
-
-  // Globe location sidebar
-  initGlobeLocations();
 
   animate();
 }
 
 function addContinentPatches(r) {
-  const continents = [
-    { lat: 50, lon: 10, scale: 0.15 },
-    { lat: 55, lon: 25, scale: 0.12 },
-    { lat: 60, lon: 15, scale: 0.1 },
-    { lat: 64, lon: 14, scale: 0.08 },
-    { lat: 68, lon: 18, scale: 0.06 },
-    { lat: 65, lon: -19, scale: 0.05 },
-    { lat: 72, lon: -42, scale: 0.2 },
-    { lat: 68, lon: -50, scale: 0.12 },
-    { lat: 45, lon: -100, scale: 0.35 },
-    { lat: 55, lon: -105, scale: 0.25 },
-    { lat: 60, lon: -135, scale: 0.15 },
-    { lat: 35, lon: -90, scale: 0.2 },
-    { lat: 42, lon: 70, scale: 0.2 },
-    { lat: 35, lon: 60, scale: 0.15 },
-    { lat: 60, lon: 80, scale: 0.3 },
-    { lat: 65, lon: 120, scale: 0.2 },
-    { lat: 5, lon: 20, scale: 0.3 },
-    { lat: -10, lon: 25, scale: 0.2 },
-    { lat: -15, lon: -60, scale: 0.25 },
-    { lat: -30, lon: -65, scale: 0.15 },
-    { lat: -25, lon: 135, scale: 0.2 },
-    { lat: 35, lon: 110, scale: 0.2 },
-    { lat: 40, lon: 130, scale: 0.1 },
-    { lat: 78, lon: 16, scale: 0.04 },
-  ];
-
-  continents.forEach(c => {
-    const pos = latLonToVec3(c.lat, c.lon, r + 0.002);
-    const geo = new THREE.CircleGeometry(c.scale, 24);
-    const mat = new THREE.MeshBasicMaterial({
-      color: 0x182848,
-      transparent: true,
-      opacity: 0.3,
-      side: THREE.DoubleSide,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.copy(pos);
-    mesh.lookAt(0, 0, 0);
-    globe.add(mesh);
+  [
+    { lat: 50, lon: 10, s: 0.15 }, { lat: 55, lon: 25, s: 0.12 }, { lat: 60, lon: 15, s: 0.1 }, { lat: 64, lon: 14, s: 0.08 }, { lat: 68, lon: 18, s: 0.06 },
+    { lat: 65, lon: -19, s: 0.05 }, { lat: 72, lon: -42, s: 0.2 }, { lat: 68, lon: -50, s: 0.12 }, { lat: 45, lon: -100, s: 0.35 }, { lat: 55, lon: -105, s: 0.25 },
+    { lat: 60, lon: -135, s: 0.15 }, { lat: 35, lon: -90, s: 0.2 }, { lat: 42, lon: 70, s: 0.2 }, { lat: 35, lon: 60, s: 0.15 }, { lat: 60, lon: 80, s: 0.3 },
+    { lat: 65, lon: 120, s: 0.2 }, { lat: 5, lon: 20, s: 0.3 }, { lat: -10, lon: 25, s: 0.2 }, { lat: -15, lon: -60, s: 0.25 }, { lat: -30, lon: -65, s: 0.15 },
+    { lat: -25, lon: 135, s: 0.2 }, { lat: 35, lon: 110, s: 0.2 }, { lat: 40, lon: 130, s: 0.1 }, { lat: 78, lon: 16, s: 0.04 }
+  ].forEach(c => {
+    const m = new THREE.Mesh(new THREE.CircleGeometry(c.s, 12), new THREE.MeshBasicMaterial({ color: 0x182848, transparent: true, opacity: 0.3, side: THREE.DoubleSide }));
+    m.position.copy(latLonToVec3(c.lat, c.lon, r + 0.002)); m.lookAt(0, 0, 0); globe.add(m);
   });
 }
 
-function initGlobeLocations() {
-  document.querySelectorAll('.globe-loc').forEach(loc => {
-    loc.addEventListener('click', () => {
-      const tripId = loc.dataset.trip;
-      const trip = TRIPS.find(t => t.id === tripId);
-      if (trip) {
-        // Rotate globe to show the location
-        const target = latLonToVec3(trip.lat, trip.lon, 1.5);
-        const angle = Math.atan2(target.x, target.z);
-        globe.rotation.y = -angle + Math.PI;
-        autoRotate = false;
-        setTimeout(() => autoRotate = true, 5000);
-        // Open modal
-        openModal(trip);
-      }
-    });
-  });
-}
-
-function onMouseDown(e) {
-  isDragging = true;
-  autoRotate = false;
-  prevMouse.x = e.clientX;
-  prevMouse.y = e.clientY;
-}
-
+function onMouseDown(e) { isDragging = true; autoRotate = false; prevMouse.x = e.clientX; prevMouse.y = e.clientY; }
 function onMouseMove(e) {
-  const container = document.getElementById('globe-container');
-  const rect = container.getBoundingClientRect();
-
-  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
+  if (isDragging) {
+    globe.rotation.y += (e.clientX - prevMouse.x) * 0.005; globe.rotation.x += (e.clientY - prevMouse.y) * 0.005;
+    globe.rotation.x = Math.max(-1.2, Math.min(1.2, globe.rotation.x));
+    prevMouse.x = e.clientX; prevMouse.y = e.clientY;
+  }
+  // Throttle raycasting to ~16 checks/sec
+  const now = performance.now();
+  if (now - lastRaycast < 60) return;
+  lastRaycast = now;
+  const c = document.getElementById('globe-container'), r = c.getBoundingClientRect();
+  mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1; mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(pinMeshes);
-  const tooltip = document.getElementById('globe-tooltip');
-
-  if (intersects.length > 0) {
-    const tripId = intersects[0].object.userData.tripId;
-    const trip = TRIPS.find(t => t.id === tripId);
-    if (trip && tooltip) {
-      tooltip.textContent = trip.title;
-      tooltip.style.left = (e.clientX - rect.left + 15) + 'px';
-      tooltip.style.top = (e.clientY - rect.top - 15) + 'px';
-      tooltip.classList.add('active');
-      container.style.cursor = 'pointer';
-    }
-  } else {
-    if (tooltip) tooltip.classList.remove('active');
-    container.style.cursor = isDragging ? 'grabbing' : 'grab';
-  }
-
-  if (!isDragging) return;
-  const dx = e.clientX - prevMouse.x;
-  const dy = e.clientY - prevMouse.y;
-  globe.rotation.y += dx * 0.005;
-  globe.rotation.x += dy * 0.005;
-  globe.rotation.x = Math.max(-1.2, Math.min(1.2, globe.rotation.x));
-  prevMouse.x = e.clientX;
-  prevMouse.y = e.clientY;
+  const hits = raycaster.intersectObjects(pinMeshes), tt = document.getElementById('globe-tooltip');
+  if (hits.length > 0) { const t = tripMap.get(hits[0].object.userData.tripId); if (t && tt) { tt.textContent = t.title; tt.style.left = (e.clientX - r.left + 15) + 'px'; tt.style.top = (e.clientY - r.top - 15) + 'px'; tt.classList.add('active'); c.style.cursor = 'pointer'; } }
+  else { if (tt) tt.classList.remove('active'); c.style.cursor = isDragging ? 'grabbing' : 'grab'; }
 }
-
-function onMouseUp() {
-  isDragging = false;
-  setTimeout(() => { autoRotate = true; }, 4000);
-}
-
-function onTouchStart(e) {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    autoRotate = false;
-    prevMouse.x = e.touches[0].clientX;
-    prevMouse.y = e.touches[0].clientY;
-    e.preventDefault();
-  }
-}
-
-function onTouchMove(e) {
-  if (!isDragging || e.touches.length !== 1) return;
-  e.preventDefault();
-  const dx = e.touches[0].clientX - prevMouse.x;
-  const dy = e.touches[0].clientY - prevMouse.y;
-  globe.rotation.y += dx * 0.005;
-  globe.rotation.x += dy * 0.005;
-  globe.rotation.x = Math.max(-1.2, Math.min(1.2, globe.rotation.x));
-  prevMouse.x = e.touches[0].clientX;
-  prevMouse.y = e.touches[0].clientY;
-}
-
+function onMouseUp() { isDragging = false; setTimeout(() => autoRotate = true, 4000); }
+function onTouchStart(e) { if (e.touches.length === 1) { isDragging = true; autoRotate = false; prevMouse.x = e.touches[0].clientX; prevMouse.y = e.touches[0].clientY; e.preventDefault(); } }
+function onTouchMove(e) { if (!isDragging || e.touches.length !== 1) return; e.preventDefault(); globe.rotation.y += (e.touches[0].clientX - prevMouse.x) * 0.005; globe.rotation.x += (e.touches[0].clientY - prevMouse.y) * 0.005; globe.rotation.x = Math.max(-1.2, Math.min(1.2, globe.rotation.x)); prevMouse.x = e.touches[0].clientX; prevMouse.y = e.touches[0].clientY; }
 function onGlobeClick(e) {
-  const container = document.getElementById('globe-container');
-  const rect = container.getBoundingClientRect();
-  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
+  const c = document.getElementById('globe-container'), r = c.getBoundingClientRect();
+  mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1; mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(pinMeshes);
-
-  if (intersects.length > 0) {
-    const tripId = intersects[0].object.userData.tripId;
-    const trip = TRIPS.find(t => t.id === tripId);
-    if (trip) openModal(trip);
-  }
+  const hits = raycaster.intersectObjects(pinMeshes);
+  if (hits.length > 0) { const t = tripMap.get(hits[0].object.userData.tripId); if (t) openModal(t); }
 }
-
-function onResize() {
-  const container = document.getElementById('globe-container');
-  if (!container || !camera || !renderer) return;
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-}
+function onResize() { const c = document.getElementById('globe-container'); if (!c || !camera || !renderer) return; const w = c.clientWidth, h = c.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); }
 
 let pulseTime = 0;
+let frameSkip = 0;
 function animate() {
-  requestAnimationFrame(animate);
-  pulseTime += 0.02;
-
-  if (autoRotate && globe) {
-    globe.rotation.y += 0.0018;
+  requestAnimationFrame(animate); pulseTime += 0.02;
+  if (autoRotate && globe) globe.rotation.y += 0.0018;
+  // Only animate pin glow every 3rd frame for performance
+  if (++frameSkip % 3 === 0 && pinGroup) {
+    const pins = pinGroup.children;
+    for (let i = 0, len = pins.length; i < len; i++) {
+      const gl = pins[i].children[2], rn = pins[i].children[3], o = i * 0.5;
+      const sv = Math.sin(pulseTime * 2 + o);
+      if (gl) { gl.scale.setScalar(1 + sv * 0.25); gl.material.opacity = 0.15 + sv * 0.12; }
+      if (rn) { rn.scale.setScalar(1 + Math.sin(pulseTime * 1.5 + o) * 0.3); rn.material.opacity = 0.1 + Math.sin(pulseTime * 1.5 + o) * 0.08; }
+    }
   }
-
-  // Pulse pins
-  pinGroup?.children.forEach((pin, i) => {
-    const glowMesh = pin.children[2];
-    const ring = pin.children[3];
-    const offset = i * 0.5;
-    if (glowMesh) {
-      glowMesh.scale.setScalar(1 + Math.sin(pulseTime * 2 + offset) * 0.25);
-      glowMesh.material.opacity = 0.15 + Math.sin(pulseTime * 2 + offset) * 0.12;
-    }
-    if (ring) {
-      ring.scale.setScalar(1 + Math.sin(pulseTime * 1.5 + offset) * 0.3);
-      ring.material.opacity = 0.1 + Math.sin(pulseTime * 1.5 + offset) * 0.08;
-    }
-  });
-
   renderer.render(scene, camera);
 }
 
 // ───────── TRIP CARDS ─────────
+const CARDS_PER_PAGE = 12;
+let currentPage = 1;
+let filteredTrips = [...TRIPS];
+
 function renderTripCards() {
   const grid = document.getElementById('trips-grid');
   if (!grid) return;
 
-  grid.innerHTML = TRIPS.map((trip, index) => `
-    <div class="trip-card reveal" data-trip-id="${trip.id}" data-transport="${trip.transport}" data-vibe="${trip.vibe}" style="transition-delay: ${index * 0.1}s">
+  const start = (currentPage - 1) * CARDS_PER_PAGE;
+  const pageTrips = filteredTrips.slice(start, start + CARDS_PER_PAGE);
+
+  grid.innerHTML = pageTrips.map((trip, index) => `
+    <div class="trip-card reveal" data-trip-id="${trip.id}" data-transport="${trip.transport}" data-vibe="${trip.vibe}" style="transition-delay: ${index * 0.06}s">
       <div class="trip-card__image">
         <img src="${trip.image}" alt="${trip.title}" loading="lazy">
         <div class="trip-card__image-overlay"></div>
@@ -604,96 +251,135 @@ function renderTripCards() {
       <div class="trip-card__body">
         <p class="trip-card__region">${trip.region}</p>
         <h3 class="trip-card__title">${trip.title}</h3>
-        <p class="trip-card__desc">${trip.description.substring(0, 130)}…</p>
+        <p class="trip-card__desc">${trip.description.substring(0, 120)}…</p>
         <div class="trip-card__meta">
-          <div class="trip-card__stat">
-            <span class="trip-card__stat-label">Adrenaline</span>
-            <div class="trip-card__stat-bar">${renderPips(trip.adrenaline, 'filled')}</div>
-          </div>
-          <div class="trip-card__stat">
-            <span class="trip-card__stat-label">Luxury</span>
-            <div class="trip-card__stat-bar">${renderPips(trip.luxury, 'filled gold')}</div>
-          </div>
-          <div class="trip-card__stat">
-            <span class="trip-card__stat-label">Remoteness</span>
-            <div class="trip-card__stat-bar">${renderPips(trip.remoteness, 'filled')}</div>
-          </div>
+          <div class="trip-card__stat"><span class="trip-card__stat-label">Adrenaline</span><div class="trip-card__stat-bar">${renderPips(trip.adrenaline, 'filled')}</div></div>
+          <div class="trip-card__stat"><span class="trip-card__stat-label">Luxury</span><div class="trip-card__stat-bar">${renderPips(trip.luxury, 'filled gold')}</div></div>
+          <div class="trip-card__stat"><span class="trip-card__stat-label">Remoteness</span><div class="trip-card__stat-bar">${renderPips(trip.remoteness, 'filled')}</div></div>
         </div>
       </div>
-      <div class="trip-card__hover-details">
-        🕐 Best time: ${trip.bestTime} → Click for details
-      </div>
+      <div class="trip-card__hover-details">🕐 Best time: ${trip.bestTime} → Click for details</div>
     </div>
   `).join('');
 
-  // Card click
   grid.querySelectorAll('.trip-card').forEach(card => {
     card.addEventListener('click', () => {
-      const trip = TRIPS.find(t => t.id === card.dataset.tripId);
+      const trip = tripMap.get(card.dataset.tripId);
       if (trip) openModal(trip);
     });
   });
 
+  renderPagination();
   requestAnimationFrame(() => initScrollReveal());
 }
 
-function getTransportLabel(t) {
-  const labels = { helicopter: '🚁 Helicopter', boat: '⛵ Boat', dogsled: '🐕 Dog Sled', horse: '🐴 Horse' };
-  return labels[t] || t;
+function renderPagination() {
+  const totalPages = Math.ceil(filteredTrips.length / CARDS_PER_PAGE);
+  let container = document.getElementById('pagination');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'pagination';
+    container.className = 'pagination';
+    document.getElementById('trips-grid')?.parentElement?.appendChild(container);
+  }
+
+  if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" data-page="prev">←</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    if (totalPages > 7 && i > 2 && i < totalPages - 1 && Math.abs(i - currentPage) > 1) {
+      if (i === 3 || i === totalPages - 2) html += `<span class="page-dots">…</span>`;
+      continue;
+    }
+    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+  }
+  html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" data-page="next">→</button>`;
+
+  container.innerHTML = html;
+  container.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('disabled')) return;
+      const p = btn.dataset.page;
+      if (p === 'prev') currentPage = Math.max(1, currentPage - 1);
+      else if (p === 'next') currentPage = Math.min(Math.ceil(filteredTrips.length / CARDS_PER_PAGE), currentPage + 1);
+      else currentPage = +p;
+      renderTripCards();
+      document.getElementById('trips')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
+function getTransportLabel(t) {
+  return { helicopter: '🚁 Helicopter', boat: '⛵ Boat', dogsled: '🐕 Dog Sled', horse: '🐴 Horse' }[t] || t;
+}
 function renderPips(value, cls) {
-  let html = '';
-  for (let i = 1; i <= 10; i++) {
-    html += `<span class="stat-pip ${i <= value ? cls : ''}"></span>`;
+  let h = '';
+  for (let i = 1; i <= 10; i++) h += `<span class="stat-pip ${i <= value ? cls : ''}"></span>`;
+  return h;
+}
+
+// ───────── RESULT COUNT ─────────
+function updateResultCount() {
+  let el = document.getElementById('result-count');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'result-count';
+    el.className = 'result-count';
+    document.querySelector('.filter-bar')?.appendChild(el);
   }
-  return html;
+  el.textContent = `${filteredTrips.length} expedition${filteredTrips.length !== 1 ? 's' : ''} found`;
 }
 
 // ───────── FILTERS ─────────
 let activeTransport = 'all';
 let activeVibe = 'all';
+let activeRegion = 'all';
+
+function getRegion(trip) {
+  const id = trip.id;
+  if (['iceland', 'iceland-westfjords', 'iceland-eyja', 'greenland', 'greenland-east', 'svalbard', 'lyngen', 'lofoten', 'senja', 'faroe'].includes(id)) return 'arctic';
+  if (['finland', 'sweden-abisko', 'finland-saariselka', 'norway-narvik', 'norway-romsdal'].includes(id)) return 'scandinavia';
+  if (['kyrgyzstan', 'kyrgyzstan-karakol', 'kazakhstan', 'georgia', 'tajikistan', 'turkey'].includes(id)) return 'central-asia';
+  if (['skijoring', 'chamonix', 'verbier', 'dolomites', 'arlberg', 'pyrenees', 'scotland', 'romania', 'morocco', 'lebanon'].includes(id)) return 'europe';
+  if (['hokkaido-niseko', 'hokkaido-asahi', 'tohoku', 'nagano', 'japan-shiga'].includes(id)) return 'japan';
+  if (['alaska-valdez', 'alaska-haines', 'alaska-denali', 'bc-revelstoke', 'bc-bellacola', 'colorado', 'tetons', 'utah', 'montana-glacier', 'newfoundland'].includes(id)) return 'north-america';
+  if (['patagonia', 'chile-araucania', 'chile-portillo', 'bolivia', 'ushuaia'].includes(id)) return 'south-america';
+  if (['kamchatka', 'siberia-altai', 'elbrus', 'armenia'].includes(id)) return 'russia';
+  if (['kashmir', 'nepal', 'spiti', 'pakistan', 'iran'].includes(id)) return 'himalayas';
+  if (['nz-south', 'nz-cook', 'antarctica', 'south-georgia', 'china'].includes(id)) return 'oceania';
+  return 'other';
+}
 
 function initFilters() {
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const type = btn.dataset.type;
       const filter = btn.dataset.filter;
-
       document.querySelectorAll(`.filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       if (type === 'transport') activeTransport = filter;
       if (type === 'vibe') activeVibe = filter;
-
+      if (type === 'region') activeRegion = filter;
       applyFilters();
     });
   });
 }
 
 function applyFilters() {
-  const cards = document.querySelectorAll('.trip-card');
-  let delay = 0;
-
-  cards.forEach(card => {
-    const transport = card.dataset.transport;
-    const vibe = card.dataset.vibe;
-    const matchTransport = activeTransport === 'all' || transport === activeTransport;
-    const matchVibe = activeVibe === 'all' || vibe === activeVibe;
-
-    if (matchTransport && matchVibe) {
-      card.classList.remove('hidden');
-      card.style.animation = `fadeInUp 0.5s ease ${delay}s both`;
-      delay += 0.08;
-    } else {
-      card.classList.add('hidden');
-    }
+  filteredTrips = TRIPS.filter(trip => {
+    const mt = activeTransport === 'all' || trip.transport === activeTransport;
+    const mv = activeVibe === 'all' || trip.vibe === activeVibe;
+    const mr = activeRegion === 'all' || getRegion(trip) === activeRegion;
+    return mt && mv && mr;
   });
+  currentPage = 1;
+  updateResultCount();
+  renderTripCards();
 }
 
 // ───────── MODAL ─────────
 function openModal(trip) {
-  const overlay = document.getElementById('modal-overlay');
+  const o = document.getElementById('modal-overlay');
   document.getElementById('modal-image').src = trip.image;
   document.getElementById('modal-image').alt = trip.title;
   document.getElementById('modal-region').textContent = trip.region;
@@ -703,76 +389,50 @@ function openModal(trip) {
   document.getElementById('modal-best-time').textContent = trip.bestTime;
   document.getElementById('modal-snow-type').textContent = trip.snowType;
 
-  const badgesEl = document.getElementById('modal-badges');
-  badgesEl.innerHTML = trip.details.map(d => `<span class="modal__badge">${d}</span>`).join('');
+  document.getElementById('modal-badges').innerHTML = trip.details.map(d => `<span class="modal__badge">${d}</span>`).join('');
 
-  // Ratings — animate in after modal opens
-  const ratingsEl = document.getElementById('modal-ratings');
-  ratingsEl.innerHTML = [
+  document.getElementById('modal-ratings').innerHTML = [
     { label: 'Adrenaline', value: trip.adrenaline },
     { label: 'Luxury', value: trip.luxury },
-    { label: 'Remoteness', value: trip.remoteness },
+    { label: 'Remoteness', value: trip.remoteness }
   ].map(r => `
     <div class="modal__rating">
       <span class="modal__rating-label">${r.label}</span>
-      <div class="modal__rating-bar">
-        <div class="modal__rating-fill" style="width: 0%;" data-width="${r.value * 10}%"></div>
-      </div>
+      <div class="modal__rating-bar"><div class="modal__rating-fill" style="width:0%;" data-width="${r.value * 10}%"></div></div>
       <span class="modal__rating-value">${r.value}/10</span>
     </div>
   `).join('');
 
-  overlay.classList.add('active');
+  o.classList.add('active');
   document.body.style.overflow = 'hidden';
-
-  // Animate rating bars in after slide transition
   setTimeout(() => {
-    document.querySelectorAll('.modal__rating-fill').forEach(bar => {
-      bar.style.width = bar.dataset.width;
-    });
+    document.querySelectorAll('.modal__rating-fill').forEach(b => { b.style.width = b.dataset.width; });
   }, 600);
 }
 
 function closeModal() {
-  const overlay = document.getElementById('modal-overlay');
-  overlay.classList.remove('active');
+  document.getElementById('modal-overlay').classList.remove('active');
   document.body.style.overflow = '';
 }
 
 function initModal() {
   document.getElementById('modal-close').addEventListener('click', closeModal);
-  document.getElementById('modal-overlay').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+  document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
 // ───────── SCROLL REVEAL ─────────
 function initScrollReveal() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
-// ───────── SMOOTH SCROLL FOR ANCHOR LINKS ─────────
+// ───────── SMOOTH SCROLL ─────────
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   });
 }
 
@@ -781,33 +441,34 @@ function initMobileNav() {
   const toggle = document.getElementById('nav-toggle');
   const links = document.querySelector('.nav__links');
   if (!toggle || !links) return;
-
   toggle.addEventListener('click', () => {
     links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
     links.style.flexDirection = 'column';
     links.style.position = 'absolute';
-    links.style.top = '100%';
-    links.style.left = '0';
-    links.style.right = '0';
-    links.style.background = 'rgba(6, 10, 22, 0.95)';
+    links.style.top = '100%'; links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(6,10,22,0.95)';
     links.style.backdropFilter = 'blur(20px)';
     links.style.padding = '1.5rem 2rem';
-    links.style.borderBottom = '1px solid rgba(240, 244, 255, 0.06)';
   });
 }
 
 // ───────── INIT ─────────
 document.addEventListener('DOMContentLoaded', () => {
-  initCursorGlow();
+  // Critical-path inits first
   initNavScroll();
-  initSnowParticles();
   initHeroCrossfade();
-  initStatsCounter();
-  initGlobe();
   renderTripCards();
+  updateResultCount();
   initFilters();
   initModal();
   initScrollReveal();
   initSmoothScroll();
   initMobileNav();
+  // Defer non-critical / heavy inits
+  requestAnimationFrame(() => {
+    initCursorGlow();
+    initSnowParticles();
+    initStatsCounter();
+    initGlobe();
+  });
 });

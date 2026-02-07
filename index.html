@@ -88,11 +88,11 @@
     <div class="container">
       <div class="stats-bar__grid reveal">
         <div class="stat-item">
-          <span class="stat-item__number" data-target="47">0</span>
+          <span class="stat-item__number" data-target="60">0</span>
           <span class="stat-item__label">Expedition Routes</span>
         </div>
         <div class="stat-item">
-          <span class="stat-item__number" data-target="12">0</span>
+          <span class="stat-item__number" data-target="30">0</span>
           <span class="stat-item__label">Countries</span>
         </div>
         <div class="stat-item">
@@ -101,8 +101,8 @@
           <span class="stat-item__label">Return Rate</span>
         </div>
         <div class="stat-item">
-          <span class="stat-item__number" data-target="6">0</span>
-          <span class="stat-item__label">Transport Modes</span>
+          <span class="stat-item__number" data-target="10">0</span>
+          <span class="stat-item__label">Regions</span>
         </div>
       </div>
     </div>
@@ -124,15 +124,7 @@
       <div id="globe-container" class="reveal">
         <canvas id="globe-canvas"></canvas>
         <div class="globe-tooltip" id="globe-tooltip"></div>
-        <!-- Location list overlay -->
-        <div class="globe-locations" id="globe-locations">
-          <div class="globe-loc" data-trip="iceland"><span class="globe-loc__dot"></span>Iceland</div>
-          <div class="globe-loc" data-trip="greenland"><span class="globe-loc__dot"></span>Greenland</div>
-          <div class="globe-loc" data-trip="svalbard"><span class="globe-loc__dot"></span>Svalbard</div>
-          <div class="globe-loc" data-trip="kyrgyzstan"><span class="globe-loc__dot"></span>Kyrgyzstan</div>
-          <div class="globe-loc" data-trip="finland"><span class="globe-loc__dot"></span>Finland</div>
-          <div class="globe-loc" data-trip="skijoring"><span class="globe-loc__dot"></span>Montana / St. Moritz</div>
-        </div>
+        <!-- 60 pins rendered by JS -->
       </div>
       <p class="globe-instruction reveal">↔ Drag to rotate &nbsp;•&nbsp; Click a pin to view details</p>
     </div>
@@ -186,6 +178,21 @@
           <button class="filter-btn active" data-filter="all" data-type="vibe">All</button>
           <button class="filter-btn" data-filter="luxury" data-type="vibe">✦ Luxury</button>
           <button class="filter-btn" data-filter="raw" data-type="vibe">⛰ Raw Expedition</button>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="filter-group filter-group--regions">
+          <span class="filter-group__label">Region</span>
+          <button class="filter-btn active" data-filter="all" data-type="region">All</button>
+          <button class="filter-btn" data-filter="arctic" data-type="region">🧊 Arctic</button>
+          <button class="filter-btn" data-filter="scandinavia" data-type="region">❄️ Scandinavia</button>
+          <button class="filter-btn" data-filter="europe" data-type="region">🏔 Europe</button>
+          <button class="filter-btn" data-filter="central-asia" data-type="region">🐴 Central Asia</button>
+          <button class="filter-btn" data-filter="japan" data-type="region">🗾 Japan</button>
+          <button class="filter-btn" data-filter="north-america" data-type="region">🦅 N. America</button>
+          <button class="filter-btn" data-filter="south-america" data-type="region">🌋 S. America</button>
+          <button class="filter-btn" data-filter="russia" data-type="region">🌄 Russia</button>
+          <button class="filter-btn" data-filter="himalayas" data-type="region">🏔 Himalayas</button>
+          <button class="filter-btn" data-filter="oceania" data-type="region">🌊 Oceania</button>
         </div>
       </div>
     </div>
@@ -311,6 +318,7 @@
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="trips-data.js"></script>
   <script src="app.js"></script>
 </body>
 

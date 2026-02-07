@@ -1630,3 +1630,88 @@ body:hover .cursor-glow {
     text-align: center;
   }
 }
+
+/* ==========================================
+   PAGINATION
+   ========================================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.page-btn {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--snow-muted);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+  min-width: 40px;
+  text-align: center;
+}
+
+.page-btn:hover:not(.disabled):not(.active) {
+  background: rgba(30, 42, 74, 0.6);
+  color: var(--snow);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, var(--orange), var(--gold));
+  color: var(--midnight);
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(255, 107, 43, 0.25);
+}
+
+.page-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-dots {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--snow-muted);
+  padding: 0 0.3rem;
+}
+
+/* ==========================================
+   RESULT COUNT
+   ========================================== */
+.result-count {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--snow-muted);
+  opacity: 0.7;
+}
+
+/* ==========================================
+   REGION FILTER WRAPPING
+   ========================================== */
+.filter-group--regions {
+  width: 100%;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.filter-group--regions .filter-btn {
+  font-size: 0.7rem;
+  padding: 0.45rem 0.9rem;
+}
