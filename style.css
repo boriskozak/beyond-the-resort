@@ -1820,3 +1820,62 @@ body:hover .cursor-glow {
   color: var(--snow-muted);
   line-height: 1.6;
 }
+/* ==========================================
+   CLINT'S DECIDER & AIRBNB
+   ========================================== */
+.clint-btn {
+  background: linear-gradient(135deg, #FFD700, #FF8C00);
+  color: #0f172a;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-left: 1rem;
+}
+
+.clint-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 140, 0, 0.5);
+  background: linear-gradient(135deg, #FFED4D, #FFA500);
+}
+
+.clint-btn:active {
+  transform: translateY(1px);
+}
+
+.clint-btn__icon {
+  font-size: 1.2rem;
+}
+
+/* Modal Actions (Airbnb + Reserve) */
+.modal__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.modal__cta--airbnb {
+  background: #FF5A5F !important;
+  border: 1px solid #FF5A5F !important;
+  color: white !important;
+  flex: 1;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.modal__cta--airbnb:hover {
+  background: #E0484D !important;
+  box-shadow: 0 4px 15px rgba(255, 90, 95, 0.3) !important;
+  transform: translateY(-2px);
+}

@@ -427,6 +427,21 @@ function openModal(trip) {
   // Share button
   document.getElementById('share-text').textContent = 'Share Link';
 
+  // Airbnb Button for Clint
+  const airbnbBtn = document.getElementById('modal-airbnb');
+  if (airbnbBtn) {
+    // Clint's filters: 4 bedrooms, Hot Tub (25), Ski-in/Ski-out (99)
+    // Extract a search term from region/title. e.g. "Taos Ski Valley", "Niseko", "Chamonix"
+    let searchTerm = trip.region.split('—')[1] || trip.region.split('—')[0];
+    if (trip.id === 'taos') searchTerm = 'Taos Ski Valley'; // Force specific term for Taos
+
+    const query = encodeURIComponent(searchTerm.trim());
+    const airbnbUrl = `https://www.airbnb.com/s/${query}/homes?min_bedrooms=4&amenities%5B%5D=25&amenities%5B%5D=99`;
+
+    airbnbBtn.href = airbnbUrl;
+    airbnbBtn.style.display = 'inline-flex';
+  }
+
   o.classList.add('active');
   document.body.style.overflow = 'hidden';
   setTimeout(() => {
@@ -469,6 +484,43 @@ function initModal() {
   }
   openFromHash();
   window.addEventListener('hashchange', openFromHash);
+}
+
+// ───────── CLINT'S DECIDER ─────────
+function initClintDecider() {
+  const btn = document.getElementById('clint-decider');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    // Disable button to prevent double clicks
+    btn.style.pointerEvents = 'none';
+    const originalText = btn.innerHTML;
+
+    // Spin effect
+    let spins = 0;
+    const maxSpins = 15;
+    const interval = setInterval(() => {
+      const randomTrip = TRIPS[Math.floor(Math.random() * TRIPS.length)];
+      btn.innerHTML = `<span class="clint-btn__icon">🎰</span> ${randomTrip.title.substring(0, 15)}...`;
+      spins++;
+
+      if (spins >= maxSpins) {
+        clearInterval(interval);
+        // Always land on Taos
+        const taos = tripMap.get('taos');
+        btn.innerHTML = `<span class="clint-btn__icon">🎯</span> TAOS!!!`;
+
+        setTimeout(() => {
+          if (taos) openModal(taos);
+          // Reset button
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.pointerEvents = 'auto';
+          }, 1000);
+        }, 500);
+      }
+    }, 100);
+  });
 }
 
 // ───────── SCROLL REVEAL ─────────
@@ -520,5 +572,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSnowParticles();
     initStatsCounter();
     initGlobe();
+    initClintDecider();
   });
 });
