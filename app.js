@@ -342,7 +342,7 @@ function getRegion(trip) {
   if (['kyrgyzstan', 'kyrgyzstan-karakol', 'kazakhstan', 'georgia', 'tajikistan', 'turkey'].includes(id)) return 'central-asia';
   if (['skijoring', 'chamonix', 'verbier', 'dolomites', 'arlberg', 'pyrenees', 'scotland', 'romania', 'morocco', 'lebanon'].includes(id)) return 'europe';
   if (['hokkaido-niseko', 'hokkaido-asahi', 'tohoku', 'nagano', 'japan-shiga'].includes(id)) return 'japan';
-  if (['alaska-valdez', 'alaska-haines', 'alaska-denali', 'bc-revelstoke', 'bc-bellacola', 'colorado', 'tetons', 'utah', 'montana-glacier', 'newfoundland'].includes(id)) return 'north-america';
+  if (['alaska-valdez', 'alaska-haines', 'alaska-denali', 'bc-revelstoke', 'bc-bellacola', 'colorado', 'tetons', 'utah', 'montana-glacier', 'taos', 'newfoundland'].includes(id)) return 'north-america';
   if (['patagonia', 'chile-araucania', 'chile-portillo', 'bolivia', 'ushuaia'].includes(id)) return 'south-america';
   if (['kamchatka', 'siberia-altai', 'elbrus', 'armenia'].includes(id)) return 'russia';
   if (['kashmir', 'nepal', 'spiti', 'pakistan', 'iran'].includes(id)) return 'himalayas';
