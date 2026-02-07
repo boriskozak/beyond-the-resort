@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Beyond the Resort: Extreme Winter Expeditions — Arctic heli-skiing, ski & sail voyages, dog-sled touring, and luxury skijoring in the world's most remote destinations.">
+  <title>Beyond the Resort | Extreme Winter Expeditions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Cursor glow follower -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#hero" class="nav__logo">
+        <span class="nav__logo-icon">◆</span>
+        <span class="nav__logo-text">Beyond the Resort</span>
+      </a>
+      <div class="nav__links">
+        <a href="#globe" class="nav__link">Destinations</a>
+        <a href="#trips" class="nav__link">Expeditions</a>
+        <a href="#stats" class="nav__link">Why Us</a>
+        <a href="#footer" class="nav__link nav__link--cta">Book Now</a>
+      </div>
+      <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <img class="hero__bg-image" id="hero-bg-img" src="images/iceland.png" alt="Heli-skiing over arctic fjords">
+      <img class="hero__bg-image hero__bg-image--next" id="hero-bg-img-next" src="images/finland.png" alt="">
+      <div class="hero__particles" id="snow-particles"></div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge-wrap">
+        <span class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Season 2026 — Now Booking
+        </span>
+      </div>
+      <h1 class="hero__title">
+        <span class="hero__title-line">Ski the Ends</span>
+        <span class="hero__title-line hero__title-line--accent">of the Earth.</span>
+      </h1>
+      <p class="hero__subtitle">From Arctic Heli-Skiing to Dog-Sled Supported Touring.</p>
+      <div class="hero__cta-group">
+        <a href="#globe" class="hero__cta hero__cta--primary">
+          Choose Your Expedition
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+        <a href="#trips" class="hero__cta hero__cta--ghost">
+          View All Trips
+        </a>
+      </div>
+    </div>
+    <div class="hero__scroll-hint">
+      <div class="hero__scroll-mouse">
+        <div class="hero__scroll-wheel"></div>
+      </div>
+      <span>Scroll to Explore</span>
+    </div>
+
+    <!-- Animated gradient border at bottom -->
+    <div class="hero__gradient-border"></div>
+  </section>
+
+  <!-- ========== STATS BAR ========== -->
+  <section class="stats-bar" id="stats">
+    <div class="container">
+      <div class="stats-bar__grid reveal">
+        <div class="stat-item">
+          <span class="stat-item__number" data-target="47">0</span>
+          <span class="stat-item__label">Expedition Routes</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__number" data-target="12">0</span>
+          <span class="stat-item__label">Countries</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__number" data-target="98">0</span>
+          <span class="stat-item__suffix">%</span>
+          <span class="stat-item__label">Return Rate</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__number" data-target="6">0</span>
+          <span class="stat-item__label">Transport Modes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GLOBE ========== -->
+  <section class="globe-section" id="globe">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__tag">
+          <span class="section-header__tag-line"></span>
+          Select Your Destination
+          <span class="section-header__tag-line"></span>
+        </p>
+        <h2 class="section-header__title">Explore the Globe</h2>
+        <p class="section-header__subtitle">Click a glowing pin to discover expeditions in the world's most extreme
+          skiing destinations.</p>
+      </div>
+      <div id="globe-container" class="reveal">
+        <canvas id="globe-canvas"></canvas>
+        <div class="globe-tooltip" id="globe-tooltip"></div>
+        <!-- Location list overlay -->
+        <div class="globe-locations" id="globe-locations">
+          <div class="globe-loc" data-trip="iceland"><span class="globe-loc__dot"></span>Iceland</div>
+          <div class="globe-loc" data-trip="greenland"><span class="globe-loc__dot"></span>Greenland</div>
+          <div class="globe-loc" data-trip="svalbard"><span class="globe-loc__dot"></span>Svalbard</div>
+          <div class="globe-loc" data-trip="kyrgyzstan"><span class="globe-loc__dot"></span>Kyrgyzstan</div>
+          <div class="globe-loc" data-trip="finland"><span class="globe-loc__dot"></span>Finland</div>
+          <div class="globe-loc" data-trip="skijoring"><span class="globe-loc__dot"></span>Montana / St. Moritz</div>
+        </div>
+      </div>
+      <p class="globe-instruction reveal">↔ Drag to rotate &nbsp;•&nbsp; Click a pin to view details</p>
+    </div>
+  </section>
+
+  <!-- ========== FILTERS ========== -->
+  <section class="filter-section" id="filters">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__tag">
+          <span class="section-header__tag-line"></span>
+          Find Your Adventure
+          <span class="section-header__tag-line"></span>
+        </p>
+        <h2 class="section-header__title">Choose Your Mode</h2>
+      </div>
+      <div class="filter-bar reveal">
+        <div class="filter-group">
+          <span class="filter-group__label">Transport</span>
+          <button class="filter-btn active" data-filter="all" data-type="transport">All</button>
+          <button class="filter-btn" data-filter="helicopter" data-type="transport">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2v6m0 0l-4-2m4 2l4-2M4 14h16M6 14v4a2 2 0 002 2h8a2 2 0 002-2v-4M2 10h6m8 0h6" />
+            </svg>
+            Helicopter
+          </button>
+          <button class="filter-btn" data-filter="boat" data-type="transport">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 20s2-1 5-1 5 2 8 1 5-2 7-1M4 16l2-8h12l2 8M12 8V4m0 0l-3 2m3-2l3 2" />
+            </svg>
+            Boat
+          </button>
+          <button class="filter-btn" data-filter="dogsled" data-type="transport">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="7" cy="17" r="2" />
+              <circle cx="17" cy="17" r="2" />
+              <path d="M5 17H3v-2l2-4h14l2 4v2h-2M7 12V8l5-3 5 3v4" />
+            </svg>
+            Dog Sled
+          </button>
+          <button class="filter-btn" data-filter="horse" data-type="transport">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M14 5l1-2 3 1-1 3m-3-2c-2 0-4 2-4 4v3h2l1 5h2l1-5h2v-3c0-2-2-4-4-4zM6 19v-3M18 19v-3" />
+            </svg>
+            Horse
+          </button>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="filter-group">
+          <span class="filter-group__label">Vibe</span>
+          <button class="filter-btn active" data-filter="all" data-type="vibe">All</button>
+          <button class="filter-btn" data-filter="luxury" data-type="vibe">✦ Luxury</button>
+          <button class="filter-btn" data-filter="raw" data-type="vibe">⛰ Raw Expedition</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRIP CARDS ========== -->
+  <section class="trips-section" id="trips">
+    <div class="container">
+      <div class="trips-grid" id="trips-grid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MODAL ========== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal__image">
+        <img id="modal-image" src="" alt="">
+        <div class="modal__image-overlay"></div>
+        <button class="modal__close" id="modal-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal__content">
+        <p class="modal__region" id="modal-region"></p>
+        <h2 class="modal__title" id="modal-title"></h2>
+        <p class="modal__price" id="modal-price"></p>
+        <div class="modal__badges" id="modal-badges"></div>
+        <div class="modal__divider"></div>
+        <p class="modal__section-title">The Experience</p>
+        <p class="modal__description" id="modal-description"></p>
+        <p class="modal__section-title">Uniqueness Factor</p>
+        <div class="modal__ratings" id="modal-ratings"></div>
+        <div class="modal__highlights">
+          <div class="modal__highlight">
+            <p class="modal__highlight-title">Best Time to Go</p>
+            <p class="modal__highlight-value" id="modal-best-time"></p>
+          </div>
+          <div class="modal__highlight">
+            <p class="modal__highlight-title">Snow Type</p>
+            <p class="modal__highlight-value" id="modal-snow-type"></p>
+          </div>
+        </div>
+        <button class="modal__cta">
+          Reserve Your Spot
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__top reveal">
+        <div class="footer__brand">
+          <h3><span class="footer__logo-icon">◆</span> Beyond the Resort</h3>
+          <p>Life's too short for groomed runs. We curate the most extreme, remote, and unforgettable ski expeditions on
+            the planet.</p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="X/Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M4 4l11.733 16H20L8.267 4H4zm0 16L20 4" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>Expeditions</h4>
+            <a href="#">Arctic Heli-Skiing</a>
+            <a href="#">Ski & Sail</a>
+            <a href="#">Dog-Sled Touring</a>
+            <a href="#">Luxury Skijoring</a>
+          </div>
+          <div class="footer__col">
+            <h4>Company</h4>
+            <a href="#">About Us</a>
+            <a href="#">Safety</a>
+            <a href="#">Guides</a>
+            <a href="#">Press</a>
+          </div>
+        </div>
+        <div class="footer__newsletter">
+          <h4>Join the Waitlist for Next Season</h4>
+          <p>Be the first to know when new expeditions drop.</p>
+          <form class="footer__newsletter-form"
+            onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('.footer__newsletter-btn').textContent='✓ Subscribed'; this.querySelector('.footer__newsletter-btn').style.pointerEvents='none';">
+            <input type="email" class="footer__newsletter-input" placeholder="your@email.com" required>
+            <button type="submit" class="footer__newsletter-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Beyond the Resort. All rights reserved.</p>
+        <p class="footer__copy">Built for those who go further.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
