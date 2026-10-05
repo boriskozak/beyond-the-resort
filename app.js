@@ -48,6 +48,8 @@ function initHeroCrossfade() {
   const imgB = document.getElementById('hero-bg-img-next');
   if (!imgA || !imgB) return;
   const imgs = ['images/iceland.png', 'images/svalbard.png', 'images/alaska.png', 'images/kamchatka.png', 'images/japan.png', 'images/patagonia.png'];
+  // Preload every rotation image so the crossfade never flashes a half-loaded frame
+  imgs.forEach(src => { const pre = new Image(); pre.src = src; });
   let idx = 0, showA = true;
   setInterval(() => {
     idx = (idx + 1) % imgs.length;
