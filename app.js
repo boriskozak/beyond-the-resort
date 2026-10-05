@@ -127,7 +127,7 @@ function initGlobe() {
   pinGroup = new THREE.Group();
   globe.add(pinGroup);
 
-  // Share geometries & materials across all 60 pins (huge perf win)
+  // Share geometries & materials across all 66 pins (huge perf win)
   const stemGeo = new THREE.CylinderGeometry(0.007, 0.007, 0.14, 6);
   const headGeo = new THREE.SphereGeometry(0.035, 8, 8);
   const glowGeo = new THREE.SphereGeometry(0.06, 8, 8);

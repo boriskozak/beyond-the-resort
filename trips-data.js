@@ -1,5 +1,5 @@
 /* ============================================
-   Beyond the Resort — Trip Data (60 Destinations)
+   Beyond the Resort — Trip Data (66 Destinations)
    ============================================ */
 
 const TRIPS = [
