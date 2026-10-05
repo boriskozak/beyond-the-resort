@@ -213,7 +213,9 @@ function onResize() { const c = document.getElementById('globe-container'); if (
 let pulseTime = 0;
 let frameSkip = 0;
 function animate() {
-  requestAnimationFrame(animate); pulseTime += 0.02;
+  requestAnimationFrame(animate);
+  if (document.hidden) return; // skip render work while the tab is in the background
+  pulseTime += 0.02;
   if (autoRotate && globe) globe.rotation.y += 0.0018;
   // Only animate pin glow every 3rd frame for performance
   if (++frameSkip % 3 === 0 && pinGroup) {
