@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
