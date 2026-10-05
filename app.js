@@ -552,6 +552,10 @@ function initMobileNav() {
     links.style.backdropFilter = 'blur(20px)';
     links.style.padding = '1.5rem 2rem';
   });
+  // Close the menu when a link is tapped
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { links.style.display = 'none'; });
+  });
 }
 
 // ───────── INIT ─────────
