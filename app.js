@@ -245,7 +245,7 @@ function renderTripCards() {
   const pageTrips = filteredTrips.slice(start, start + CARDS_PER_PAGE);
 
   grid.innerHTML = pageTrips.map((trip, index) => `
-    <div class="trip-card reveal" data-trip-id="${trip.id}" data-transport="${trip.transport}" data-vibe="${trip.vibe}" style="transition-delay: ${index * 0.06}s">
+    <div class="trip-card reveal" data-trip-id="${trip.id}" data-transport="${trip.transport}" data-vibe="${trip.vibe}" style="transition-delay: ${index * 0.06}s" tabindex="0" role="button" aria-label="View details for ${trip.title}">
       <div class="trip-card__image">
         <img src="${trip.image}" alt="${trip.title}" loading="lazy">
         <div class="trip-card__image-overlay"></div>
@@ -268,6 +268,13 @@ function renderTripCards() {
 
   grid.querySelectorAll('.trip-card').forEach(card => {
     card.addEventListener('click', () => {
+      const trip = tripMap.get(card.dataset.tripId);
+      if (trip) openModal(trip);
+    });
+    // Cards are focusable (tabindex=0), so Enter/Space must open them too
+    card.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
       const trip = tripMap.get(card.dataset.tripId);
       if (trip) openModal(trip);
     });
